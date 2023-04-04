@@ -6,16 +6,20 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ChatModule } from './chat/chat.module';
 import { MemberResolver } from './member/member.resolver';
 import { MessageResolver } from './message/message.resolver';
+import { EventGateway } from './event/event.gateway';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
     ChatModule,
+    EventModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
     }),
+    EventModule,
   ],
   controllers: [AppController],
-  providers: [AppService, MemberResolver, MessageResolver],
+  providers: [AppService, MemberResolver, MessageResolver, EventGateway],
 })
 export class AppModule {}
