@@ -1,30 +1,31 @@
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { Chat } from './chat.model';
-import { ChatService } from './chat.service';
+import { GroupChat } from './group-chat.model';
+import { GroupChatService } from './group-chat.service';
 import { MemberService } from '../member/member.service';
 import { MessageService } from '../message/message.service';
+import { DirectChat } from '../direct-chat/direct-chat.model';
 
-@Resolver((of) => Chat)
-export class ChatResolver {
+@Resolver((of) => GroupChat)
+export class GroupChatResolver {
   constructor(
-    private chatService: ChatService,
+    private chatService: GroupChatService,
     private memberService: MemberService,
     private messageService: MessageService,
   ) {}
 
-  @Query((returns) => [Chat])
-  async chats(@Args('memberId', { type: () => String }) memberId: string) {
+  @Query((returns) => [GroupChat])
+  async groupChats(@Args('memberId', { type: () => String }) memberId: string) {
     return this.chatService.findByMemberId({ memberId });
   }
   @ResolveField()
-  async members(@Parent() chat: Chat) {
+  async members(@Parent() chat: GroupChat) {
     return this.memberService.findMembersIn({
       memberIds: chat.members.map((member) => member.id),
     });
   }
 
   @ResolveField()
-  async messages(@Parent() chat: Chat) {
+  async messages(@Parent() chat: GroupChat) {
     return this.messageService.findByChatId({
       chatId: chat.id,
     });

@@ -18,4 +18,8 @@ export class MemberService {
       })
       .exec();
   }
+
+  async findById({ memberId }: { memberId: string }) {
+    return this.memberModel.findById(memberId).exec();
+  }
 }

@@ -12,4 +12,42 @@ export class MessageService {
   findByChatId({ chatId }: { chatId: string }) {
     return this.messageModel.find({ toChat: chatId }).exec();
   }
+
+  async findByMemberId({ memberId }: { memberId: string }) {
+    return this.messageModel.aggregate([
+      {
+        $match: {
+          $or: [
+            { from: memberId, toMember: { $ne: null } },
+            { toMember: memberId, from: { $ne: null } },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $cond: {
+              if: { $eq: ['$from', memberId] },
+              then: '$toMember',
+              else: '$from',
+            },
+          },
+          messages: {
+            $push: {
+              from: '$from',
+              toMember: '$toMember',
+              content: '$content',
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: '$_id',
+          id: '$_id',
+          messages: '$messages',
+        },
+      },
+    ]);
+  }
 }

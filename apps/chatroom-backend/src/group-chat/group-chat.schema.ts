@@ -12,4 +12,4 @@ export class Chat {
   members: string[];
 }
 
-export const ChatSchema = SchemaFactory.createForClass(Chat);
+export const GroupChatSchema = SchemaFactory.createForClass(Chat);

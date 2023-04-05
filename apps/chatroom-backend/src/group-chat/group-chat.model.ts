@@ -1,9 +1,8 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Member } from '../member/member.model';
 import { Message } from '../message/message.model';
-
-@ObjectType({ description: 'chat' })
-export class Chat {
+@ObjectType({ description: 'group-chat' })
+export class GroupChat {
   @Field((type) => ID)
   id: string;
 
