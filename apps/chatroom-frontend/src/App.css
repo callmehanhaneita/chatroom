@@ -1,3 +1,7 @@
+#root {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .container {
   width: 100%;
   height: calc(100vh - 70px);
