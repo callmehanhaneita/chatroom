@@ -7,9 +7,15 @@ import { Model } from 'mongoose';
 export class MemberService {
   constructor(@InjectModel(Member.name) private memberModel: Model<Member>) {}
 
-  async findAll(): Promise<Member[]> {
-    const members = await this.memberModel.find().exec();
-    console.log('members', members);
-    return members;
+  async findMembersIn({
+    memberIds,
+  }: {
+    memberIds: string[];
+  }): Promise<Member[]> {
+    return this.memberModel
+      .find({
+        id: { $in: memberIds },
+      })
+      .exec();
   }
 }

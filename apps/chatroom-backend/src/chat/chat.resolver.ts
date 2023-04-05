@@ -1,33 +1,32 @@
-import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { Chat } from './chat.model';
-import { Message } from '../message/message.model';
 import { ChatService } from './chat.service';
 import { MemberService } from '../member/member.service';
+import { MessageService } from '../message/message.service';
 
 @Resolver((of) => Chat)
 export class ChatResolver {
   constructor(
     private chatService: ChatService,
     private memberService: MemberService,
+    private messageService: MessageService,
   ) {}
 
   @Query((returns) => [Chat])
-  async chats() {
-    const chat = new Chat();
-    chat.id = '123';
-    return [chat];
+  async chats(@Args('memberId', { type: () => String }) memberId: string) {
+    return this.chatService.findByMemberId({ memberId });
   }
   @ResolveField()
-  async members(@Parent() group: Chat) {
-    return await this.memberService.findAll();
+  async members(@Parent() chat: Chat) {
+    return this.memberService.findMembersIn({
+      memberIds: chat.members.map((member) => member.id),
+    });
   }
 
   @ResolveField()
-  async messages(@Parent() group: Chat) {
-    const message = new Message();
-    message.from = 'member-name';
-    message.content = 'message-content';
-    message.sentAt = new Date();
-    return [message];
+  async messages(@Parent() chat: Chat) {
+    return this.messageService.findByChatId({
+      chatId: chat.id,
+    });
   }
 }

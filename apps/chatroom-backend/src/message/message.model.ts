@@ -8,8 +8,14 @@ export class Message {
   @Field(() => String)
   from: string;
 
-  @Field((type) => Date, { name: 'sentAt' })
-  sentAt: Date;
+  @Field(() => String, { nullable: true })
+  toChat?: string;
+
+  @Field(() => String, { nullable: true })
+  toMember?: string;
+
+  @Field(() => Date)
+  createdAt: Date;
 
   @Field(() => String)
   content: string;

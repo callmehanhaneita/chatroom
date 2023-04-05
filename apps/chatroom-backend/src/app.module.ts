@@ -4,15 +4,16 @@ import { AppService } from './app.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ChatModule } from './chat/chat.module';
-import { MemberResolver } from './member/member.resolver';
-import { MessageResolver } from './message/message.resolver';
 import { EventModule } from './event/event.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MemberModule } from './member/member.module';
+import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [
     ChatModule,
+    MemberModule,
+    MessageModule,
     EventModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -21,9 +22,8 @@ import { MemberModule } from './member/member.module';
     MongooseModule.forRoot(
       'mongodb://user_dev:pwd_dev@127.0.0.1:27017/chatroom-dev',
     ),
-    MemberModule,
   ],
   controllers: [AppController],
-  providers: [AppService, MemberResolver, MessageResolver],
+  providers: [AppService],
 })
 export class AppModule {}

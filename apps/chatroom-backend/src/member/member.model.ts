@@ -7,4 +7,7 @@ export class Member {
 
   @Field(() => String)
   name: string;
+
+  @Field(() => String)
+  avatar: string;
 }
