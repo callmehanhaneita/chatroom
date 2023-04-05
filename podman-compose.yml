@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  mongo:
+    container_name: gradual-mongodb
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: kXXohEkiFvVeHWHTRVR3n
+      MONGO_INITDB_DATABASE: root-db
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

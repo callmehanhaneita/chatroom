@@ -1,7 +1,7 @@
-import { MemberModel } from './member.model';
+import { Member } from './member.model';
 
 describe('Member', () => {
   it('should be defined', () => {
-    expect(new MemberModel()).toBeDefined();
+    expect(new Member()).toBeDefined();
   });
 });

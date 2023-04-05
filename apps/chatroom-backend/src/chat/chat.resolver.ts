@@ -1,10 +1,16 @@
 import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { Chat } from './chat.model';
-import { Member } from '../member/member.model';
 import { Message } from '../message/message.model';
+import { ChatService } from './chat.service';
+import { MemberService } from '../member/member.service';
 
 @Resolver((of) => Chat)
 export class ChatResolver {
+  constructor(
+    private chatService: ChatService,
+    private memberService: MemberService,
+  ) {}
+
   @Query((returns) => [Chat])
   async chats() {
     const chat = new Chat();
@@ -13,9 +19,7 @@ export class ChatResolver {
   }
   @ResolveField()
   async members(@Parent() group: Chat) {
-    const member = new Member();
-    member.name = 'member-name';
-    return [member];
+    return await this.memberService.findAll();
   }
 
   @ResolveField()
