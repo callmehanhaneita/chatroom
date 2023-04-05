@@ -12,10 +12,13 @@ export class Message {
   from: string;
 
   @Prop()
-  toChat?: string;
+  toGroup?: string;
 
   @Prop()
   toMember?: string;
+
+  @Prop()
+  type: string;
 
   @Prop()
   content: string;

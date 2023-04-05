@@ -1,0 +1,5 @@
+.chat {
+    flex-grow: 1;
+    height: calc(100% - 20px);
+    background-color: #26252D;
+}

@@ -1,0 +1,5 @@
+.chatroom {
+    flex-grow: 1;
+    background: #0C0E13;
+    display: flex;
+}

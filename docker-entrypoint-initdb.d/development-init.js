@@ -31,8 +31,8 @@ db.members.insertMany([
   }
 ]);
 
-db.createCollection("chats");
-db.chats.insertMany([
+db.createCollection("groups");
+db.groups.insertMany([
   {
     _id: "642d0dab9fe815bd7fe6e347",
     name: "Announcements",
@@ -87,21 +87,24 @@ db.createCollection("messages");
 db.messages.insertMany([
   {
     from: "642d04fdbd473f3c5434a4d7",
-    toChat: "642d0dab9fe815bd7fe6e347",
+    toGroup: "642d0dab9fe815bd7fe6e347",
+    type: 'GROUP_MESSAGE',
     createdAt: new Date(),
     updatedAt: new Date(),
     content: "Design Guideline.pdf"
   },
   {
     from: "642d04fdbd473f3c5434a4d8",
-    toChat: "642d0dab9fe815bd7fe6e348",
+    toGroup: "642d0dab9fe815bd7fe6e348",
+    type: 'GROUP_MESSAGE',
     createdAt: new Date(),
     updatedAt: new Date(),
     content: "Photo"
   },
   {
     from: "642d04fdbd473f3c5434a4d9",
-    toChat: "642d0dab9fe815bd7fe6e349",
+    toGroup: "642d0dab9fe815bd7fe6e349",
+    type: 'GROUP_MESSAGE',
     createdAt: new Date(),
     updatedAt: new Date(),
     content: "If you want to learn more, just ping me directly"
@@ -109,6 +112,7 @@ db.messages.insertMany([
   {
     from: "642d04fdbd473f3c5434a4d8",
     toMember: "642d04fdbd473f3c5434a4d7",
+    type: 'DIRECT_MESSAGE',
     createdAt: new Date(),
     updatedAt: new Date(),
     content: "So, what's your plan this weekend?"
@@ -116,6 +120,7 @@ db.messages.insertMany([
   {
     from: "642d04fdbd473f3c5434a4d9",
     toMember: "642d04fdbd473f3c5434a4d7",
+    type: 'DIRECT_MESSAGE',
     createdAt: new Date(),
     updatedAt: new Date(),
     content: "What's the progress on that task?"
@@ -123,13 +128,15 @@ db.messages.insertMany([
   {
     from: "642d04fdbd473f3c5434a4da",
     toMember: "642d04fdbd473f3c5434a4d7",
+    type: 'DIRECT_MESSAGE',
     createdAt: new Date(),
     updatedAt: new Date(),
     content: "Yeah! You're right."
   },
   {
     from: "642d04fdbd473f3c5434a4da",
-    toChat: "642d0dab9fe815bd7fe6e34a",
+    toGroup: "642d0dab9fe815bd7fe6e34a",
+    type: 'GROUP_MESSAGE',
     createdAt: new Date(),
     updatedAt: new Date(),
     content: "Yeah I know"
