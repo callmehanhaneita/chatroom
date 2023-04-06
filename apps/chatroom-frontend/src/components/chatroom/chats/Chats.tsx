@@ -1,5 +1,6 @@
 import "./Chats.css";
 import { ChatType, MemberType, MessageType } from "../../../types/Chat";
+import formatDate from "../../../utils/timeUtil";
 
 function Chats({
                  chats,
@@ -27,9 +28,7 @@ function ChatItem({
                     onChatSelected
                   }: { active: boolean, name: string, members: MemberType[], messages: MessageType[], onChatSelected: Function }) {
   const latestMessageTimestamp = new Date(messages[messages.length - 1].createdAt);
-  const hours = latestMessageTimestamp.getHours();
-  const minutes = latestMessageTimestamp.getMinutes();
-  const formattedTime = `${hours}:${minutes < 10 ? "0" + minutes : minutes}`;
+  const formattedTime = formatDate(latestMessageTimestamp)
   return (
     <div className="chat-item" onClick={() => onChatSelected()} style={{ backgroundColor: active ? '#26252D' : '#1D1C21' }}>
       <img src={members[0].avatar} alt="Chat Image" />
