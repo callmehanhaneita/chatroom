@@ -10,14 +10,6 @@ const useSocket = (clientId: string) => {
   useEffect(() => {
     socket.on("connect", () => {
       setSocket(socket);
-      socket.emit('DIRECT_MESSAGE', {
-        content: 'A callback message',
-        from: '642d04fdbd473f3c5434a4d7',
-        type: 'DIRECT_MESSAGE',
-        toMember: '642d04fdbd473f3c5434a4d9'
-      }, () => {
-        console.log('ssssss')
-      })
     });
     return () => { socket.close() };
   }, []);

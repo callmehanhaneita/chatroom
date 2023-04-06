@@ -5,7 +5,6 @@ import { gql } from "@apollo/client";
 
 const useChatsQuery = (id: string) => {
   const [chats, setChats] = useState<ChatType[]>([]);
-
   useEffect(() => {
     client.query({
       query: gql`

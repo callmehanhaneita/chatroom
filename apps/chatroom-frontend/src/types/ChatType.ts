@@ -1,7 +1,12 @@
+export enum MESSAGE_TYPE {
+  DIRECT_MESSAGE = 'DIRECT_MESSAGE',
+  GROUP_MESSAGE = 'GROUP_MESSAGE',
+}
+
 export interface ChatType {
   id: string;
   name: string;
-  type: string,
+  type: MESSAGE_TYPE,
   members: MemberType[],
   messages: MessageType[],
 }

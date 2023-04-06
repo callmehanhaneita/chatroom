@@ -1,4 +1,4 @@
-import mongoose, { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument, Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type GroupDocument = HydratedDocument<Group>;
@@ -28,9 +28,6 @@ class Message {
 
   @Prop()
   content: string;
-
-  @Prop()
-  createdAt: Date;
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

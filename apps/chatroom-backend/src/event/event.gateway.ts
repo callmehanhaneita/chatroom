@@ -12,6 +12,13 @@ import { Socket } from 'socket.io';
 import { Server } from 'socket.io';
 import { EventService } from './event.service';
 
+export interface DirectMessageEvent {
+  content: string;
+  from: string;
+  type: string;
+  to: string;
+}
+
 @WebSocketGateway({
   cors: {
     origin: '*',
@@ -32,7 +39,8 @@ export class EventGateway implements OnGatewayInit, OnGatewayConnection {
   }
 
   @SubscribeMessage('DIRECT_MESSAGE')
-  handleMessage(@MessageBody() data: any, @ConnectedSocket() client: Socket) {
+  handleMessage(@MessageBody() data: DirectMessageEvent, @ConnectedSocket() client: Socket) {
+    console.log('hello', data);
     this.eventService.addDirectMessage(data);
     // this.server.emit('message', {
     //   hello: 'everyone',

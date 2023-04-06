@@ -6,6 +6,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ChatModule } from './chat/chat.module';
 import { EventModule } from './event/event.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+
+mongoose.set('debug', true);
 
 @Module({
   imports: [

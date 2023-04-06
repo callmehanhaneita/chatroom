@@ -1,20 +1,20 @@
-import './Chat.css'
-import { ChatType, MemberType, MessageType } from "../../../types/ChatType";
-import memberSvg from "../../../assets/member.svg"
+import "./Chat.css";
+import { ChatType, MemberType, MESSAGE_TYPE, MessageType } from "../../../types/ChatType";
+import memberSvg from "../../../assets/member.svg";
 import { DEFAULT_MEMBERS } from "../../../constants/members";
 import formatDate from "../../../utils/timeUtil";
 import React, { useState } from "react";
+import { MyCustomEvent } from "../../../types/EventType";
 
-function Chat({ activeChat }: { activeChat: ChatType | undefined }) {
+function Chat({ activeChat }: { activeChat: ChatType }) {
+  const chatType = activeChat?.members.length > 2 ? MESSAGE_TYPE.GROUP_MESSAGE : MESSAGE_TYPE.DIRECT_MESSAGE
   return (
     <div className="chat">
-      {
-        activeChat && <div style={{ height: '100%', display: "flex", flexDirection: "column" }}>
-          <ChatHeader title={activeChat.name} memberCount={activeChat.members.length}/>
-          <ChatSpace members={activeChat.members} messages={activeChat.messages} myMemberId={DEFAULT_MEMBERS[0].id} />
-          <ChatInputBox />
-        </div>
-      }
+      <div style={{ height: '100%', display: "flex", flexDirection: "column" }}>
+        <ChatHeader title={activeChat.name} memberCount={activeChat.members.length}/>
+        <ChatSpace members={activeChat.members} messages={activeChat.messages} myMemberId={DEFAULT_MEMBERS[0].id} />
+        <ChatInputBox from={"642d04fdbd473f3c5434a4d9"} to={activeChat.id} type={chatType} />
+      </div>
     </div>
   )
 }
@@ -62,7 +62,7 @@ function Message({content, fromMember, myMemberId, createAt}: {content: string, 
   </div>
 }
 
-function ChatInputBox() {
+function ChatInputBox({ from, to, type}: {from: string, to: string, type: string}) {
   const [text, setText] = useState<string>('');
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setText(event.target.value);
@@ -75,6 +75,14 @@ function ChatInputBox() {
   };
   const handleSubmit = (): void => {
     console.log('Submitted text: ', text);
+    window.dispatchEvent(new CustomEvent<MyCustomEvent>('SEND_MESSAGE', {
+      detail: {
+        content: text,
+        from,
+        type,
+        to,
+      }
+    }))
     setText('');
   };
   return (
