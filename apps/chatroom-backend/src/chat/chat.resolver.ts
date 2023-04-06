@@ -8,8 +8,6 @@ export class ChatResolver {
 
   @Query((returns) => [Chat])
   async chats(@Args('memberId', { type: () => String }) memberId: string) {
-    const chat = await this.chatService.findByMemberId({ memberId });
-    console.log('chat', chat);
-    return chat;
+    return this.chatService.findByMemberId({ memberId });
   }
 }

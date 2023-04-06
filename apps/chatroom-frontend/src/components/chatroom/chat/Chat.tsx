@@ -1,5 +1,5 @@
 import './Chat.css'
-import { ChatType, MemberType, MessageType } from "../../../types/Chat";
+import { ChatType, MemberType, MessageType } from "../../../types/ChatType";
 import memberSvg from "../../../assets/member.svg"
 import { DEFAULT_MEMBERS } from "../../../constants/members";
 import formatDate from "../../../utils/timeUtil";

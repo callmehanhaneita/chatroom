@@ -1,3 +1,4 @@
+// @ts-ignore
 import { MemberType } from "../types/Chat";
 
 export const DEFAULT_MEMBERS : MemberType[] = [

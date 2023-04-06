@@ -1,4 +1,4 @@
-import { ChatType } from "../types/Chat";
+import { ChatType } from "../types/ChatType";
 import { useEffect, useState } from "react";
 import client from "../utils/client";
 import { gql } from "@apollo/client";
@@ -30,14 +30,13 @@ const useChatsQuery = (id: string) => {
         }`,
       variables: { id }
     })
-      .then(({ data }) => {
-        console.log('gg', data)
-        setChats(data.chats);
-      });
+    .then(({ data }) => {
+      setChats(data.chats);
+    });
   }, []);
 
   return {
-    chats
+    chats, setChats
   };
 };
 
