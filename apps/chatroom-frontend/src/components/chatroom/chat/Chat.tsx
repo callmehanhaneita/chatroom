@@ -7,11 +7,16 @@ import React, { useState } from "react";
 import { MyCustomEvent } from "../../../types/EventType";
 
 function Chat({ activeChat }: { activeChat: ChatType }) {
-  const chatType = activeChat?.members.length > 2 ? MESSAGE_TYPE.GROUP_MESSAGE : MESSAGE_TYPE.DIRECT_MESSAGE
+  const chatType = activeChat.members.length > 2 ? MESSAGE_TYPE.GROUP_MESSAGE : MESSAGE_TYPE.DIRECT_MESSAGE
+  let chatTitle = activeChat.name
+  if (chatType === MESSAGE_TYPE.DIRECT_MESSAGE) {
+    const withMember = activeChat.members.find(member => { return member.id !== DEFAULT_MEMBERS[0].id })
+    chatTitle = !!withMember ? withMember.name : ''
+  }
   return (
     <div className="chat">
       <div style={{ height: '100%', display: "flex", flexDirection: "column" }}>
-        <ChatHeader title={activeChat.name} memberCount={activeChat.members.length}/>
+        <ChatHeader title={chatTitle} memberCount={activeChat.members.length}/>
         <ChatSpace members={activeChat.members} messages={activeChat.messages} myMemberId={DEFAULT_MEMBERS[0].id} />
         <ChatInputBox from={"642d04fdbd473f3c5434a4d9"} to={activeChat.id} type={chatType} />
       </div>
@@ -29,7 +34,7 @@ function ChatHeader({title, memberCount}: {title: string, memberCount: number}) 
 }
 
 function ChatSpace({members, messages, myMemberId}: {members: MemberType[], messages: MessageType[], myMemberId: string}) {
-  return <div style={{ flexGrow: 1 }}>{
+  return <div style={{ flexGrow: 1, overflow: "scroll" }}>{
     messages.map((message) => {
       const member = (members.find(member => member.id === message.from)) || DEFAULT_MEMBERS[0]
       return <Message key={message.id} content={message.content} fromMember={member} myMemberId={myMemberId} createAt={message.createdAt} />
@@ -74,7 +79,6 @@ function ChatInputBox({ from, to, type}: {from: string, to: string, type: string
     }
   };
   const handleSubmit = (): void => {
-    console.log('Submitted text: ', text);
     window.dispatchEvent(new CustomEvent<MyCustomEvent>('SEND_MESSAGE', {
       detail: {
         content: text,

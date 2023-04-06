@@ -47,7 +47,6 @@ db.groups.insertMany([
         _id: "642d09033fe815bd7fe7rd31",
         from: "642d04fdbd473f3c5434a4d7",
         createdAt: new Date(),
-        updatedAt: new Date(),
         content: "Design Guideline.pdf"
       },
     ]
@@ -65,7 +64,6 @@ db.groups.insertMany([
       _id: "642d09033fe815bd7fe7rd32",
       from: "642d04fdbd473f3c5434a4d8",
       createdAt: new Date(),
-      updatedAt: new Date(),
       content: "Photo"
     }],
   },
@@ -83,7 +81,6 @@ db.groups.insertMany([
         _id: "642d09033fe815bd7fe7rd33",
         from: "642d04fdbd473f3c5434a4d9",
         createdAt: new Date(),
-        updatedAt: new Date(),
         content: "If you want to learn more, just ping me directly"
       },
     ]
@@ -102,7 +99,6 @@ db.groups.insertMany([
         _id: "642d09033fe815bd7fe7rd34",
         from: "642d04fdbd473f3c5434a4da",
         createdAt: new Date(),
-        updatedAt: new Date(),
         content: "Yeah I know"
       }
     ]
@@ -128,7 +124,6 @@ db.groups.insertMany([
         _id: "642d09033fe815bd7fe7rd35",
         from: "642d04fdbd473f3c5434a4d8",
         createdAt: new Date(),
-        updatedAt: new Date(),
         content: "So, what's your plan this weekend?"
       }
     ]
@@ -145,7 +140,6 @@ db.groups.insertMany([
         _id: "642d09033fe815bd7fe7rd36",
         from: "642d04fdbd473f3c5434a4d9",
         createdAt: new Date(),
-        updatedAt: new Date(),
         content: "So, what's your plan this weekend?"
       }
     ]
@@ -162,7 +156,6 @@ db.groups.insertMany([
         _id: "642d09033fe815bd7fe7rd37",
         from: "642d04fdbd473f3c5434a4da",
         createdAt: new Date(),
-        updatedAt: new Date(),
         content: "Yeah! You're right."
       }
     ]

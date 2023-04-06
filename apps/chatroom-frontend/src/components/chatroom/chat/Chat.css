@@ -10,6 +10,7 @@
     color: #ffffff;
     align-items: center;
     height: 64px;
+    min-height: 64px;
     border-bottom: 1px solid #FFFFFF1A;
     margin-bottom: 20px;
 }

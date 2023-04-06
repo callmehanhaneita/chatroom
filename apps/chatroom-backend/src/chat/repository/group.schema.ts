@@ -28,6 +28,9 @@ class Message {
 
   @Prop()
   content: string;
+
+  @Prop()
+  createdAt: string;
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

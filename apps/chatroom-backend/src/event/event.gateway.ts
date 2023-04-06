@@ -34,16 +34,23 @@ export class EventGateway implements OnGatewayInit, OnGatewayConnection {
     console.log('server is inited');
   }
 
-  handleConnection(@ConnectedSocket() client: Socket, ...args: any[]): any {
-    console.log(client.handshake.auth.clientId, 'is connected1');
+  async handleConnection(
+    @ConnectedSocket() client: Socket,
+    ...args: any[]
+  ): Promise<any> {
+    const groups = await this.eventService.findAllGroups(
+      client.handshake.auth.clientId,
+    );
+    groups.forEach((group) => {
+      client.join(group.id);
+    });
   }
 
   @SubscribeMessage('DIRECT_MESSAGE')
-  handleMessage(@MessageBody() data: DirectMessageEvent, @ConnectedSocket() client: Socket) {
-    console.log('hello', data);
-    this.eventService.addDirectMessage(data);
-    // this.server.emit('message', {
-    //   hello: 'everyone',
-    // });
+  async handleMessage(
+    @MessageBody() data: DirectMessageEvent,
+    @ConnectedSocket() client: Socket,
+  ) {
+    this.server.to(data.to).emit('DIRECT_MESSAGE_RECV', await this.eventService.addDirectMessage(data));
   }
 }
