@@ -13,18 +13,16 @@ const useChatsQuery = (id: string) => {
           chats(memberId: $id) {
             id,
             name,
-            type,
             members {
               id,
               name,
               avatar
             },
             messages {
+              id,
               from,
-              toGroup,
-              toMember,
-              createdAt,
               content
+              createdAt,
             }
           }
         }`,

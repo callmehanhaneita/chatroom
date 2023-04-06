@@ -41,6 +41,15 @@ db.groups.insertMany([
       "642d04fdbd473f3c5434a4d8",
       "642d04fdbd473f3c5434a4d9",
       "642d04fdbd473f3c5434a4da"
+    ],
+    messages: [
+      {
+        _id: "642d09033fe815bd7fe7rd31",
+        from: "642d04fdbd473f3c5434a4d7",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        content: "Design Guideline.pdf"
+      },
     ]
   },
   {
@@ -51,7 +60,14 @@ db.groups.insertMany([
       "642d04fdbd473f3c5434a4d7",
       "642d04fdbd473f3c5434a4d9",
       "642d04fdbd473f3c5434a4d8"
-    ]
+    ],
+    messages: [{
+      _id: "642d09033fe815bd7fe7rd32",
+      from: "642d04fdbd473f3c5434a4d8",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      content: "Photo"
+    }],
   },
   {
     _id: "642d0dab9fe815bd7fe6e349",
@@ -61,6 +77,15 @@ db.groups.insertMany([
       "642d04fdbd473f3c5434a4d9",
       "642d04fdbd473f3c5434a4d8",
       "642d04fdbd473f3c5434a4da"
+    ],
+    messages: [
+      {
+        _id: "642d09033fe815bd7fe7rd33",
+        from: "642d04fdbd473f3c5434a4d9",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        content: "If you want to learn more, just ping me directly"
+      },
     ]
   },
   {
@@ -71,6 +96,15 @@ db.groups.insertMany([
       "642d04fdbd473f3c5434a4d7",
       "642d04fdbd473f3c5434a4d9",
       "642d04fdbd473f3c5434a4da"
+    ],
+    messages: [
+      {
+        _id: "642d09033fe815bd7fe7rd34",
+        from: "642d04fdbd473f3c5434a4da",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        content: "Yeah I know"
+      }
     ]
   },
   {
@@ -79,66 +113,58 @@ db.groups.insertMany([
     members: [
       "642d04fdbd473f3c5434a4d7",
       "642d04fdbd473f3c5434a4da",
+    ],
+    messages: []
+  },
+  {
+    _id: "642d0dab9fe815bd7fe6e34c",
+    name: 'DIRECT_GROUP',
+    members: [
+      "642d04fdbd473f3c5434a4d8",
+      "642d04fdbd473f3c5434a4d7",
+    ],
+    messages: [
+      {
+        _id: "642d09033fe815bd7fe7rd35",
+        from: "642d04fdbd473f3c5434a4d8",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        content: "So, what's your plan this weekend?"
+      }
+    ]
+  },
+  {
+    _id: "642d0dab9fe815bd7fe6e34d",
+    name: 'DIRECT_GROUP',
+    members: [
+      "642d04fdbd473f3c5434a4d9",
+      "642d04fdbd473f3c5434a4d7",
+    ],
+    messages: [
+      {
+        _id: "642d09033fe815bd7fe7rd36",
+        from: "642d04fdbd473f3c5434a4d9",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        content: "So, what's your plan this weekend?"
+      }
+    ]
+  },
+  {
+    _id: "642d0dab9fe815bd7fe6e34e",
+    name: 'DIRECT_GROUP',
+    members: [
+      "642d04fdbd473f3c5434a4da",
+      "642d04fdbd473f3c5434a4d7",
+    ],
+    messages: [
+      {
+        _id: "642d09033fe815bd7fe7rd37",
+        from: "642d04fdbd473f3c5434a4da",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        content: "Yeah! You're right."
+      }
     ]
   }
 ]);
-
-db.createCollection("messages");
-db.messages.insertMany([
-  {
-    from: "642d04fdbd473f3c5434a4d7",
-    toGroup: "642d0dab9fe815bd7fe6e347",
-    type: 'GROUP_MESSAGE',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    content: "Design Guideline.pdf"
-  },
-  {
-    from: "642d04fdbd473f3c5434a4d8",
-    toGroup: "642d0dab9fe815bd7fe6e348",
-    type: 'GROUP_MESSAGE',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    content: "Photo"
-  },
-  {
-    from: "642d04fdbd473f3c5434a4d9",
-    toGroup: "642d0dab9fe815bd7fe6e349",
-    type: 'GROUP_MESSAGE',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    content: "If you want to learn more, just ping me directly"
-  },
-  {
-    from: "642d04fdbd473f3c5434a4d8",
-    toMember: "642d04fdbd473f3c5434a4d7",
-    type: 'DIRECT_MESSAGE',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    content: "So, what's your plan this weekend?"
-  },
-  {
-    from: "642d04fdbd473f3c5434a4d9",
-    toMember: "642d04fdbd473f3c5434a4d7",
-    type: 'DIRECT_MESSAGE',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    content: "What's the progress on that task?"
-  },
-  {
-    from: "642d04fdbd473f3c5434a4da",
-    toMember: "642d04fdbd473f3c5434a4d7",
-    type: 'DIRECT_MESSAGE',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    content: "Yeah! You're right."
-  },
-  {
-    from: "642d04fdbd473f3c5434a4da",
-    toGroup: "642d0dab9fe815bd7fe6e34a",
-    type: 'GROUP_MESSAGE',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    content: "Yeah I know"
-  }
-])

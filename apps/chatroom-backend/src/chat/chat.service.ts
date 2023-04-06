@@ -15,98 +15,11 @@ export class ChatService {
   ) {}
 
   async findByMemberId({ memberId }: { memberId: string }): Promise<Chat[]> {
-    const chatsPromise = this.messageModel
-      .aggregate([
-        {
-          $lookup: {
-            from: 'groups',
-            localField: 'toGroup',
-            foreignField: '_id',
-            as: 'group',
-          },
-        },
-        {
-          $match: {
-            $or: [
-              { from: memberId },
-              { toMember: memberId },
-              { 'group.members': memberId },
-            ],
-          },
-        },
-        {
-          $group: {
-            _id: {
-              $cond: {
-                if: { $eq: ['$type', 'GROUP_MESSAGE'] },
-                then: '$toGroup',
-                else: '$toMember',
-              },
-            },
-            messages: {
-              $push: {
-                id: '$id',
-                from: '$from',
-                toMember: '$toMember',
-                toGroup: '$toGroup',
-                content: '$content',
-                createdAt: '$createdAt',
-              },
-            },
-            type: {
-              $first: '$type',
-            },
-            toGroup: {
-              $first: '$toGroup',
-            },
-            toMember: {
-              $first: '$toMember',
-            },
-          },
-        },
-        {
-          $project: {
-            _id: '$_id',
-            id: '$_id',
-            type: '$type',
-            messages: '$messages',
-            toGroup: '$toGroup',
-            toMember: '$toMember',
-          },
-        },
-      ])
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return await this.groupModel
+      .find({ members: { $in: [memberId] } })
+      .populate('members', { id: 1, name: 1, avatar: 1 })
       .exec();
-    return chatsPromise.then((chats) => {
-      return Promise.all(
-        chats.map(async (chat) => {
-          if (chat.type === 'GROUP_MESSAGE') {
-            chat.members = await this.groupModel
-              .findOne({
-                _id: chat.toGroup,
-              })
-              .exec()
-              .then((group) => {
-                chat.name = group.name;
-                return this.memberModel.find({
-                  _id: {
-                    $in: group.members,
-                  },
-                });
-              });
-          } else {
-            chat.members = await this.memberModel
-              .findOne({
-                _id: chat.toMember,
-              })
-              .exec()
-              .then((member) => {
-                chat.name = member.name;
-                return [member];
-              });
-          }
-          return chat;
-        }),
-      );
-    });
   }
 }

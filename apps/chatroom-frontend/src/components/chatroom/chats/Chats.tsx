@@ -1,5 +1,5 @@
 import "./Chats.css";
-import { ChatType, MemberType, MessageType } from "../../../types/Chat";
+import { ChatType, MemberType, MessageType } from "../../../types/ChatType";
 import formatDate from "../../../utils/timeUtil";
 
 function Chats({

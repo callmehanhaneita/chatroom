@@ -1,4 +1,4 @@
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type GroupDocument = HydratedDocument<Group>;
@@ -11,8 +11,26 @@ export class Group {
   @Prop()
   name: string;
 
-  @Prop()
+  @Prop({ type: [{ type: String, ref: 'Member' }] })
   members: string[];
+
+  @Prop()
+  messages: Message[];
+}
+
+@Schema()
+class Message {
+  @Prop()
+  _id: string;
+
+  @Prop()
+  from: string;
+
+  @Prop()
+  content: string;
+
+  @Prop()
+  createdAt: Date;
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

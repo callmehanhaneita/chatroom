@@ -9,11 +9,8 @@ import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 @ObjectType({ description: 'chat' })
 export class Chat {
-  @Field((type) => ID)
-  id: string;
-
-  @Field((type) => String)
-  type: string;
+  @Field((type) => ID, { name: 'id' })
+  _id: string;
 
   @Field((type) => String)
   name: string;
@@ -27,8 +24,8 @@ export class Chat {
 
 @ObjectType({ description: 'member' })
 class Member {
-  @Field(() => ID)
-  id: string;
+  @Field(() => ID, { name: 'id' })
+  _id: string;
 
   @Field(() => String)
   name: string;
@@ -39,17 +36,11 @@ class Member {
 
 @ObjectType({ description: 'message' })
 class Message {
-  @Field(() => ID)
-  id: string;
+  @Field(() => ID, { name: 'id' })
+  _id: string;
 
   @Field(() => String)
   from: string;
-
-  @Field(() => String, { nullable: true })
-  toGroup?: string;
-
-  @Field(() => String, { nullable: true })
-  toMember?: string;
 
   @Field(() => Date)
   createdAt: Date;
