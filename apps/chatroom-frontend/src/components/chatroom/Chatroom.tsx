@@ -6,6 +6,7 @@ import Context from "../../Context";
 import client from "../../utils/client";
 import { gql } from "@apollo/client";
 import { DEFAULT_MEMBERS } from '../../constants/members';
+import getQuery from "../../utils/urlUtil";
 
 function Chatroom() {
   const { chats, setChats } = useContext(Context);
@@ -31,7 +32,7 @@ function Chatroom() {
             }
           }
         }`,
-      variables: { id: DEFAULT_MEMBERS[0].id }
+      variables: { id: DEFAULT_MEMBERS[getQuery('user') || 'Jenny'].id }
     })
     .then(({ data }) => {
       setChats(data.chats);

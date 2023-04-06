@@ -6,9 +6,10 @@ import Context from "../../Context";
 import client from "../../utils/client";
 import { gql } from "@apollo/client";
 import { ChatType } from "../../types/ChatType";
+import getQuery from "../../utils/urlUtil";
 
 const ChatEvent =  React.memo(() => {
-  const { socket } = useSocket(DEFAULT_MEMBERS[0].id)
+  const { socket } = useSocket(DEFAULT_MEMBERS[getQuery('user') || 'Jenny'].id)
   const { chats, setChats } = useContext(Context);
 
   useEffect(() => {

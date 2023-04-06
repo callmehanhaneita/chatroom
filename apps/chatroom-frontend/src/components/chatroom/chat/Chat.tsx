@@ -5,20 +5,21 @@ import { DEFAULT_MEMBERS } from "../../../constants/members";
 import formatDate from "../../../utils/timeUtil";
 import React, { useState } from "react";
 import { MyCustomEvent } from "../../../types/EventType";
+import getQuery from "../../../utils/urlUtil";
 
 function Chat({ activeChat }: { activeChat: ChatType }) {
   const chatType = activeChat.members.length > 2 ? MESSAGE_TYPE.GROUP_MESSAGE : MESSAGE_TYPE.DIRECT_MESSAGE
   let chatTitle = activeChat.name
   if (chatType === MESSAGE_TYPE.DIRECT_MESSAGE) {
-    const withMember = activeChat.members.find(member => { return member.id !== DEFAULT_MEMBERS[0].id })
+    const withMember = activeChat.members.find(member => { return member.id !== DEFAULT_MEMBERS[getQuery('user') || 'Jenny'].id })
     chatTitle = !!withMember ? withMember.name : ''
   }
   return (
     <div className="chat">
       <div style={{ height: '100%', display: "flex", flexDirection: "column" }}>
         <ChatHeader title={chatTitle} memberCount={activeChat.members.length}/>
-        <ChatSpace members={activeChat.members} messages={activeChat.messages} myMemberId={DEFAULT_MEMBERS[0].id} />
-        <ChatInputBox from={"642d04fdbd473f3c5434a4d9"} to={activeChat.id} type={chatType} />
+        <ChatSpace members={activeChat.members} messages={activeChat.messages} myMemberId={DEFAULT_MEMBERS[getQuery('user') || 'Jenny'].id} />
+        <ChatInputBox from={DEFAULT_MEMBERS[getQuery('user') || 'Jenny'].id} to={activeChat.id} type={chatType} />
       </div>
     </div>
   )
@@ -36,7 +37,7 @@ function ChatHeader({title, memberCount}: {title: string, memberCount: number}) 
 function ChatSpace({members, messages, myMemberId}: {members: MemberType[], messages: MessageType[], myMemberId: string}) {
   return <div style={{ flexGrow: 1, overflow: "scroll" }}>{
     messages.map((message) => {
-      const member = (members.find(member => member.id === message.from)) || DEFAULT_MEMBERS[0]
+      const member = (members.find(member => member.id === message.from)) || DEFAULT_MEMBERS[getQuery('user') || 'Jenny']
       return <Message key={message.id} content={message.content} fromMember={member} myMemberId={myMemberId} createAt={message.createdAt} />
     })
   }</div>
