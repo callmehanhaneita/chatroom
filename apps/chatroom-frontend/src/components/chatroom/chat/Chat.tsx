@@ -3,7 +3,7 @@ import { ChatType, MemberType, MESSAGE_TYPE, MessageType } from "../../../types/
 import memberSvg from "../../../assets/member.svg";
 import { DEFAULT_MEMBERS } from "../../../constants/members";
 import formatDate from "../../../utils/timeUtil";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MyCustomEvent } from "../../../types/EventType";
 import getQuery from "../../../utils/urlUtil";
 
@@ -27,7 +27,7 @@ function Chat({ activeChat }: { activeChat: ChatType }) {
 function ChatHeader({title, memberCount}: {title: string, memberCount: number}) {
   return <div className="chat-header">
     <span className="chat-title">{title}</span>
-    {memberCount >= 2 && <div className="chat-members">
+    {memberCount > 2 && <div className="chat-members">
       <img src={memberSvg} className="member-icon" alt="member icon" />
       {memberCount}
     </div>}
@@ -35,7 +35,14 @@ function ChatHeader({title, memberCount}: {title: string, memberCount: number}) 
 }
 
 function ChatSpace({members, messages, myMemberId}: {members: MemberType[], messages: MessageType[], myMemberId: string}) {
-  return <div style={{ flexGrow: 1, overflow: "scroll" }}>{
+  const scrollableRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const scrollableElement = scrollableRef.current;
+    if (scrollableElement) {
+      scrollableElement.scrollTop = scrollableElement.scrollHeight;
+    }
+  }, [messages]);
+  return <div ref={scrollableRef} style={{ flexGrow: 1, overflow: "scroll" }}>{
     messages.map((message) => {
       const member = (members.find(member => member.id === message.from)) || DEFAULT_MEMBERS[getQuery('user') || 'Jenny']
       return <Message key={message.id} content={message.content} fromMember={member} myMemberId={myMemberId} createAt={message.createdAt} />
@@ -74,7 +81,7 @@ function ChatInputBox({ from, to, type}: {from: string, to: string, type: string
     setText(event.target.value);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>): void => {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === 'Enter' && !event.shiftKey && !!text) {
       handleSubmit();
       event.preventDefault();
     }

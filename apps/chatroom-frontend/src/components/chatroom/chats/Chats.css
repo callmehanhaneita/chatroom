@@ -2,6 +2,7 @@
     width: 340px;
     height: calc(100% - 20px);
     background-color: #1D1C21;
+    overflow: scroll;
 }
 
 .search {

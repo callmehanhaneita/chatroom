@@ -109,6 +109,7 @@ db.groups.insertMany([
     members: [
       "642d04fdbd473f3c5434a4d7",
       "642d04fdbd473f3c5434a4da",
+      "642d04fdbd473f3c5434a4d9",
     ],
     messages: []
   },

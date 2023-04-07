@@ -32,13 +32,15 @@ function ChatItem({
   const formattedTime = messages.length > 0 ? formatDate(new Date(messages[messages.length - 1].createdAt)) : ''
   const content = messages.length > 0 ? messages[messages.length - 1].content: ''
   let chatTitle = name
+  let avatar = members[0].avatar
   if (members.length <= 2) {
     const withMember = members.find(member => { return member.id !== DEFAULT_MEMBERS[getQuery('user') || 'Jenny'].id })
     chatTitle = !!withMember ? withMember.name : ''
+    avatar = !!withMember ? withMember.avatar : ''
   }
   return (
     <div className="chat-item" onClick={() => onChatSelected()} style={{ backgroundColor: active ? '#26252D' : '#1D1C21' }}>
-      <img src={members[0].avatar} alt="Chat Image" />
+      <img src={avatar} alt="Chat Image" />
       <div className="chat-info">
         <span className="chat-name">{chatTitle}</span>
         <span className="chat-content">{content}</span>
